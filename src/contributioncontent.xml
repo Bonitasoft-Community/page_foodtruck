@@ -1,0 +1,32 @@
+<bonitacontribution>
+  <custompages>
+    <!--  id : unique ID calculated from the contribution market place -->
+    <!--  name        : come from the page.properties -->
+    <!--  displayname : come from the page.properties -->
+    <!-- bonitacrontribfile: to download the custompage from the market place, give this ID -->
+    <!-- documentationfile : if a documentation exist, give the ID to download it -->
+    <!-- description : comme from the page.properties. In order to prepare more information, give it as the content -->
+    <!-- logo : an small image, to display it by 40x40 ( ? ) in the custom page -->
+    <custompage id="FOODTRUCK" name="custompage_foodtruck" displayname="FoodTruck" 
+        bonitacontributfile="custompage/CPFoodtruck/foodtruck.zip"
+        documentationfile="custompage/CPFoodtruck/foodtruck.pdf">
+        <description>
+        Access the market place of Bonitasoft, in order to download all another custom page
+        </description>
+        <logo></logo>
+    </custompage>
+    
+     <custompage id="CRANETRUCK" name="custompage_cranetruck" displayname="Crane Truck" 
+        bonitacontributfile="Custom_Pages/CP_Crane_Truck/cranetruck.zip"
+        documentationfile="Custom_Pages/CP_Crane_Truck/cranetruck.pdf">
+        <description>
+        Assistant to configure the LDAP Synchronizer
+        </description>
+        <logo></logo>
+    </custompage>
+  </custompages>
+  <restapi>
+  </restapi>
+  <customwidget>
+  </customwidget> 
+</bonitacontribution>

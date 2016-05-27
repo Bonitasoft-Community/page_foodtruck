@@ -1,0 +1,247 @@
+<!doctype html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <title>Food Truck</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="pageResource?page=custompage_foodtruck&location=style/animate.css" />
+    <link rel="stylesheet" href="pageResource?page=custompage_foodtruck&location=style/bootstrap.min.css">
+	<link rel="stylesheet" href="pageResource?page=custompage_foodtruck&location=style/main.css">
+	<link rel="stylesheet" href="pageResource?page=custompage_foodtruck&location=style/style.css">
+
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://www.google.com/uds/?file=visualization&amp;v=1&amp;hl=fr&amp;packages=corechart&amp;async=2"></script>
+	<link type="text/css" href="https://www.google.com/uds/api/visualization/1.0/ff67c3772da186a412ae3231c32409e9/ui+fr.css" rel="stylesheet">
+	<script type="text/javascript" src="https://www.google.com/uds/api/visualization/1.0/ff67c3772da186a412ae3231c32409e9/format+fr,default+fr,ui+fr,corechart+fr.I.js"></script>
+	<link href="https://ajax.googleapis.com/ajax/static/modules/gviz/1.0/core/tooltip.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body ng-app="foodtruckmonitor">
+
+
+<div class="container" id="accordion">
+
+	<div class="bs-component"  ng-controller="FoodTruckControler as foodtruckctrl">
+
+	
+		<center>
+		<table>
+			<tr>
+				<td><h1>Food Truck</h1><a href="" ng-click="foodtruckctrl.showhistory( ! foodtruckctrl.isshowhistory )">V1.0</a></td>
+				<td rowspan="2"><img src="pageResource?page=custompage_foodtruck&location=img/foodtruck.jpg" width="150" heigth="150" /></td>
+			</tr>
+			<tr><td>
+				<div id="showHistory" ng-show="foodtruckctrl.isshowhistory" style="border-width:2px;border-style:ridge;border-color:blue">
+				1.1 First version<br>
+				</td>
+			</tr>
+			</div>
+		</table>
+		</center>
+	
+	<!--   -------------------------------------------------------------------------- -->
+	<!--                                                                              -->
+	<!--  Custom page                                                                 -->
+	<!--                                                                              -->
+	<!-- --------------------------------------------------------------------------   -->
+	
+	
+		<div class="col-lg-12">
+			<legend class="text-primary"><span class="glyphicon glyphicon-th"></span>Custom Page</legend>
+			<div class="panel panel-primary">
+				<div class="explanation">
+				Custom page, installed or / and available on the FoodTruck.
+				</div>
+
+				<span class="Loading" ng-show="foodtruckctrl.loading"></span>
+				<span class="label label-info">{{foodtruckctrl.custompage.status}}</span>
+				<div ng-bind-html="foodtruckctrl.getListEvents(foodtruckctrl.custompage.listevents )"></div>
+
+
+				<table>
+				<tr>
+				 <td style="padding: 10px 10px 10px 10px;vertical-align:top;background-color: #e6e6e6;"><button ng-click="foodtruckctrl.listcustompage('ALL')" class="btn btn-info ">All</button></td>
+				 <td style="padding: 10px 10px 10px 10px;vertical-align:top;background-color: #e6e6e6;"><button ng-click="foodtruckctrl.listcustompage('MYPLATFORM')" class="btn btn-primary ">My platform</button></td>
+				 <td style="padding: 10px 10px 10px 10px;vertical-align:top;background-color: #e6e6e6;"><button ng-click="foodtruckctrl.listcustompage('WHATSUPDATE')" class="btn btn-warning ">Update ?</button></td>
+				 <td style="padding: 10px 10px 10px 10px;vertical-align:top;background-color: #e6e6e6;"><button ng-click="foodtruckctrl.listcustompage('WHATSNEWS')" class="btn btn-success ">New ? </button>
+				    <br>
+					<!--  Search:<input type="text" ng-model="foodtruckctrl.custompage.search">-->
+					</td>
+				</tr>
+				</table>
+				
+				<!-- 
+				<button ng-click="foodtruckctrl.listcustompage()" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button><br>
+				<input type="checkbox" ng-model="foodtruckctrl.custompage.param.showlocal">Local
+				<input type="checkbox" ng-model="foodtruckctrl.custompage.param.showBonitaAppsStore">Bonita Apps Store
+				<input type="checkbox" ng-model="foodtruckctrl.custompage.param.showBonitaAppsStoreNew">Only new Apps
+				<input type="checkbox" ng-model="foodtruckctrl.custompage.param.showBonitaAppsStoreUpdate">What's update ?
+				
+				
+				Search:<input type="text" ng-model="foodtruckctrl.custompage.search"><button ng-click="foodtruckctrl.searchCustomPage()" class="btn btn-info btn-xs">Search</button>
+				 -->
+				
+				
+				<table class="table table-striped table-hover table-condensed">
+					<tr> <th>Name</th><th>Description</th><th>Release</th><th>Profiles</th><tr>
+					<tbody ng-repeat="custompageinfo in foodtruckctrl.custompage.list track by $index">
+						<tr>
+							<td>
+								<table style="width:100%"><tr><td> <img ng-src="{{custompageinfo.urllogo}}"  width="150" heigth="150" /></td><td><a href="" title="{{custompageinfo.appsname}}">{{custompageinfo.displayname}}</a></td></tr>
+								<tr><td colspan="2">
+								<button ng-show="custompageinfo.status=='INDOWNLOAD'" class="btn btn-warning btn-xs" style="width:100%">Dowload...</button>
+								<button ng-show="custompageinfo.status=='LOCAL'" class="btn btnl-primary btn-xs" style="width:100%">Local</button>
+							    <button ng-show="custompageinfo.status=='NEW'" class="btn btn-info btn-xs" style="width:100%" ng-click="foodtruckctrl.downloadcustompage(custompageinfo)">Available</button>
+							    <button ng-show="custompageinfo.status=='OK'" class="btn btn-success btn-xs" style="width:100%" >Up to date</button>
+							    <button ng-show="custompageinfo.status=='NOTAVAILABLE'" class="btn btn-primary btn-xs" style="width:100%" >Not available</button>
+							    <button ng-show="custompageinfo.status=='TOUPDATE'" class="btn btn-danger btn-xs" style="width:100%" ng-click="foodtruckctrl.downloadcustompage(custompageinfo)">New version</button>
+							  
+							    <div  ng-show="custompageinfo.status=='TOUPDATE'">
+							  		<div ng-show="! custompageinfo.showwhatsnew">
+							  			<button ng-click="custompageinfo.showwhatsnew = ! custompageinfo.showwhatsnew"><span class="glyphicon glyphicon-chevron-left"></span></button>
+							  		</div>
+							  		<div ng-show="custompageinfo.showwhatsnew">
+							  			<button ng-click="custompageinfo.showwhatsnew = ! custompageinfo.showwhatsnew"><span class="glyphicon glyphicon-chevron-right"></span></button>
+							  			{{custompageinfo.whatsnews}}
+							  		</div>
+							 	 </div>		
+								</td>
+								</tr>
+								</table>
+								
+							</td>
+							<td>{{custompageinfo.description}}<p><span style="font: italic bold 12px/30px Georgia, serif;">{{custompageinfo.nbdownloads}}&nbsp;Downloads</span>
+							</td>
+							<td>{{custompageinfo.version}} {{custompageinfo.releasedate}}</td>
+						<td>
+						  	<div ng-show="! custompageinfo.showprofile"><button ng-click="custompageinfo.showprofile = ! custompageinfo.showprofile"><span class="glyphicon glyphicon-chevron-left"></span></button>
+						  	</div>
+						 	 <div ng-show="custompageinfo.showprofile"><button ng-click="custompageinfo.showprofile = ! custompageinfo.showprofile"><span class="glyphicon glyphicon-chevron-right"></span></button>
+						 	 	<table>
+								<tr ng-repeat="profileinfo in custompageinfo.listprofiles track by $index">
+									<td>{{profileinfo.name}};</td><td><button ng-click="foodtruckctrl.custompageoutofprofile( custompageinfo, profileinfo )" style="background-color:red" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+								 </tr>
+								 <tr ng-show="foodtruckctrl.getlistprofiletoadd( custompageinfo ).length > 0">
+								 	<td colspan="2">
+									Add in profile: 
+									<select ng-model="custompageinfo.addinprofileid">
+										<option ng-repeat="profileinfo in foodtruckctrl.getlistprofiletoadd( custompageinfo )"  value="{{profileinfo.id}}">{{profileinfo.name}}</option>
+									</select>
+									<button type="button" class="btn btn-xs btn-success" ng-click="foodtruckctrl.addcustompageinprofile( custompageinfo )">Add</button>
+									</td>
+								</tr>
+								<tr><td colspan="2">{{custompageinfo.statusinfo}}</td></tr>
+								
+								</table>
+							</div>
+
+						</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<!--   -------------------------------------------------------------------------- -->
+	<!--                                                                              -->
+	<!--  Rest Extension                                                                 -->
+	<!--                                                                              -->
+	<!-- --------------------------------------------------------------------------   -->
+	
+	<!--   -------------------------------------------------------------------------- -->
+	<!--                                                                              -->
+	<!--  Custom widget                                                                 -->
+	<!--                                                                              -->
+	<!-- --------------------------------------------------------------------------   -->
+		
+		<!-- 
+		<div class="col-lg-12">
+			<legend class="text-primary"><span class="glyphicon glyphicon-th"></span>Custom Widget</legend>
+			<div class="panel panel-primary">
+				<div class="explanation">
+					Show the different custom widget available on the Food Truck, and download them.
+				</div>
+
+				<div ng-bind-html="foodtruckctrl.getListEvents(foodtruckctrl.customwidget.listevents )"></div>
+			
+				<button ng-click="foodtruckctrl.listcustomwidget()" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+				<input type="checkbox" ng-model="foodtruckctrl.customwidget.showlocal">Local
+				<input type="checkbox" ng-model="foodtruckctrl.customwidget.showfoodtruck">FoodTruck
+				Search:<input type="text" ng-model="foodtruckctrl.customwidget.search"><button ng-click="foodtruckctrl.searchCustomWidget()" class="btn btn-info btn-xs">Search</button>
+				
+				<table class="table table-striped table-hover table-condensed">
+					<tr> <th></th><th>Name</th><th>Description</th><th>Release</th><tr>
+					<tbody ng-repeat="customwidgetinfo in foodtruckctrl.customwidget.list track by $index">
+						<tr>
+							<td>{{customwidgetinfo.icon}}</td>
+							<td><a href="" info="{{customwidgetinfo.name}}">{{customwidgetinfo.displayname}}</a><br>
+							  <div ng-show="customwidgetinfo.islocal">Local</div>
+							  <button ng-show="customwidgetinfo.isnew" class="button button-info">Available</button>
+							  <div ng-show="customwidgetinfo.isnew" class="label label-success">Up to date</div>
+							  <button ng-show="customwidgetinfo.isnew" class="button button-danger">New version</div>
+							  <div  ng-show="customwidgetinfo.isnew">
+							  	<div ng-show="! customwidgetinfo.showwhatsnew"><button ng-click="customwidgetinfo.showwhatsnew = ! customwidgetinfo.showwhatsnew"><span class="glyphicon glyphicon-left"></span></button>
+							  	</div>
+							  	<div ng-show="customwidgetinfo.showwhatsnew"><button ng-click="customwidgetinfo.showwhatsnew = ! customwidgetinfo.showwhatsnew"><span class="glyphicon glyphicon-right"></span></button>
+							  		{{customwidgetinfo.whatsnews}}
+							  	</div>
+							</div>							  	
+							 </td>
+							<td>{{customwidgetinfo.description}}</td>
+							<td>{{customwidgetinfo.version}} {{customwidgetinfo.releasedate}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		 -->
+		<!--   -------------------------------------------------------------------------- -->
+	<!--                                                                              -->
+	<!--  Parameters                                                                 -->
+	<!--                                                                              -->
+	<!-- --------------------------------------------------------------------------   -->
+	
+
+	<div class="col-lg-12">
+			<legend class="text-primary"><span class="glyphicon glyphicon-th"></span>Github Login</legend>
+			Login: <input type="text" ng-model="foodtruckctrl.custompage.param.github.login">
+			Password:<input type="password" ng-model="foodtruckctrl.custompage.param.github.password">
+			<p> <button  class="btn btn-success" ng-click="foodtruckctrl.saveParameters()">Set login</div>
+			{{foodtruckctrl.statusparameters}}
+							
+	</div>
+
+</div> <!--  end div controler -->
+</div> <!--  end div container -->
+
+
+<!-- Third party dependencies -->
+
+<script src="pageResource?page=custompage_foodtruck&location=3rd-party/jquery.min.js"></script>
+
+<script src="pageResource?page=custompage_foodtruck&location=3rd-party/angular.min.js"></script>
+
+<script src="pageResource?page=custompage_foodtruck&location=3rd-party/angular-resource.min.js"></script>
+<script src="pageResource?page=custompage_foodtruck&location=3rd-party/angular-cookies.min.js"></script>
+
+<script src="pageResource?page=custompage_foodtruck&location=3rd-party/bootstrap/js/bootstrap.min.js"></script>
+<script src="pageResource?page=custompage_foodtruck&location=3rd-party/angular-bootstrap-tpls.min.js"></script>
+<script src="pageResource?page=custompage_foodtruck&location=3rd-party/angular-file-upload.js"></script>
+<script src="pageResource?page=custompage_foodtruck&location=3rd-party/ng-google-chart.js"></script>
+<script src="pageResource?page=custompage_foodtruck&location=3rd-party/angular-sanitize.min.js"></script> 
+
+
+<!-- Application dependencies -->
+<script src="pageResource?page=custompage_foodtruck&location=foodtruckmonitor.js"></script>
+
+</body>
+</html>
