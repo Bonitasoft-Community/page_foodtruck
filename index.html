@@ -36,12 +36,13 @@
 		<center>
 		<table>
 			<tr>
-				<td><h1>Food Truck</h1><a href="" ng-click="foodtruckctrl.showhistory( ! foodtruckctrl.isshowhistory )">V1.0</a></td>
+				<td><h1>Food Truck</h1><a href="" ng-click="foodtruckctrl.showhistory( ! foodtruckctrl.isshowhistory )">V1.1</a></td>
 				<td rowspan="2"><img src="pageResource?page=custompage_foodtruck&location=img/foodtruck.jpg" width="150" heigth="150" /></td>
 			</tr>
 			<tr><td>
 				<div id="showHistory" ng-show="foodtruckctrl.isshowhistory" style="border-width:2px;border-style:ridge;border-color:blue">
-				1.1 First version<br>
+				1.0 First version<br>
+				1.0 Ready for 7.5 + BonitaCommunity login
 				</td>
 			</tr>
 			</div>
@@ -81,10 +82,10 @@
 				
 				<!-- 
 				<button ng-click="foodtruckctrl.listcustompage()" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button><br>
-				<input type="checkbox" ng-model="foodtruckctrl.custompage.param.showlocal">Local
-				<input type="checkbox" ng-model="foodtruckctrl.custompage.param.showBonitaAppsStore">Bonita Apps Store
-				<input type="checkbox" ng-model="foodtruckctrl.custompage.param.showBonitaAppsStoreNew">Only new Apps
-				<input type="checkbox" ng-model="foodtruckctrl.custompage.param.showBonitaAppsStoreUpdate">What's update ?
+				<input type="checkbox" ng-model="foodtruckctrl.param.showlocal">Local
+				<input type="checkbox" ng-model="foodtruckctrl.param.showBonitaAppsStore">Bonita Apps Store
+				<input type="checkbox" ng-model="foodtruckctrl.param.showBonitaAppsStoreNew">Only new Apps
+				<input type="checkbox" ng-model="foodtruckctrl.param.showBonitaAppsStoreUpdate">What's update ?
 				
 				
 				Search:<input type="text" ng-model="foodtruckctrl.custompage.search"><button ng-click="foodtruckctrl.searchCustomPage()" class="btn btn-info btn-xs">Search</button>
@@ -123,27 +124,28 @@
 							</td>
 							<td>{{custompageinfo.version}} {{custompageinfo.releasedate}}</td>
 						<td>
-						  	<div ng-show="! custompageinfo.showprofile"><button ng-click="custompageinfo.showprofile = ! custompageinfo.showprofile"><span class="glyphicon glyphicon-chevron-left"></span></button>
-						  	</div>
-						 	 <div ng-show="custompageinfo.showprofile"><button ng-click="custompageinfo.showprofile = ! custompageinfo.showprofile"><span class="glyphicon glyphicon-chevron-right"></span></button>
-						 	 	<table>
-								<tr ng-repeat="profileinfo in custompageinfo.listprofiles track by $index">
-									<td>{{profileinfo.name}};</td><td><button ng-click="foodtruckctrl.custompageoutofprofile( custompageinfo, profileinfo )" style="background-color:red" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
-								 </tr>
-								 <tr ng-show="foodtruckctrl.getlistprofiletoadd( custompageinfo ).length > 0">
-								 	<td colspan="2">
-									Add in profile: 
-									<select ng-model="custompageinfo.addinprofileid">
-										<option ng-repeat="profileinfo in foodtruckctrl.getlistprofiletoadd( custompageinfo )"  value="{{profileinfo.id}}">{{profileinfo.name}}</option>
-									</select>
-									<button type="button" class="btn btn-xs btn-success" ng-click="foodtruckctrl.addcustompageinprofile( custompageinfo )">Add</button>
-									</td>
-								</tr>
-								<tr><td colspan="2">{{custompageinfo.statusinfo}}</td></tr>
-								
-								</table>
+							<div ng-show="custompageinfo.isAllowAddProfile && foodtruckctrl.generalAllowAddProfile">
+							  	<div ng-show="! custompageinfo.showprofile"><button ng-click="custompageinfo.showprofile = ! custompageinfo.showprofile"><span class="glyphicon glyphicon-chevron-right"></span></button>
+							  	</div>
+							 	 <div ng-show="custompageinfo.showprofile"><button ng-click="custompageinfo.showprofile = ! custompageinfo.showprofile"><span class="glyphicon glyphicon-chevron-down"></span></button>
+							 	 	<table>
+									<tr ng-repeat="profileinfo in custompageinfo.listprofiles track by $index">
+										<td>{{profileinfo.name}};</td><td><button ng-click="foodtruckctrl.custompageoutofprofile( custompageinfo, profileinfo )" style="background-color:red" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+									 </tr>
+									 <tr ng-show="foodtruckctrl.getlistprofiletoadd( custompageinfo ).length > 0">
+									 	<td colspan="2">
+										Add in profile: 
+										<select ng-model="custompageinfo.addinprofileid">
+											<option ng-repeat="profileinfo in foodtruckctrl.getlistprofiletoadd( custompageinfo )"  value="{{profileinfo.id}}">{{profileinfo.name}}</option>
+										</select>
+										<button type="button" class="btn btn-xs btn-success" ng-click="foodtruckctrl.addcustompageinprofile( custompageinfo )">Add</button>
+										</td>
+									</tr>
+									<tr><td colspan="2">{{custompageinfo.statusinfo}}</td></tr>
+									
+									</table>
+								</div>
 							</div>
-
 						</td>
 						</tr>
 					</tbody>
@@ -212,12 +214,24 @@
 	
 
 	<div class="col-lg-12">
-			<legend class="text-primary"><span class="glyphicon glyphicon-th"></span>Github Login</legend>
-			Login: <input type="text" ng-model="foodtruckctrl.custompage.param.github.login">
-			Password:<input type="password" ng-model="foodtruckctrl.custompage.param.github.password">
-			<p> <button  class="btn btn-success" ng-click="foodtruckctrl.saveParameters()">Set login</div>
-			{{foodtruckctrl.statusparameters}}
-							
+			<legend class="text-primary"><span class="glyphicon glyphicon-th">
+			<a href="#" ng-click="foodtruckctrl.showgithublogin = ! foodtruckctrl.showgithublogin" style="text-decoration:none">					
+			  				<span ng-show="foodtruckctrl.showgithublogin" class="glyphicon glyphicon-chevron-down" style="font-size: 18px;"></span>
+							<span ng-show="! foodtruckctrl.showgithublogin" class="glyphicon glyphicon-chevron-right"  style="font-size: 18px;"></span>
+			</a>		
+
+			</span>Github Login</legend>
+			<div ng-show="foodtruckctrl.showgithublogin">
+			
+			<div class="well">Leave it blank to use the defaut BonitaFoodTruck account</div><p>
+				Login: <input  ng-model="foodtruckctrl.param.github.gitlogin" maxlength="30">						
+				Password:<input type="password" ng-model="foodtruckctrl.param.github.gitpassword">
+				<p><p> <button  class="btn btn-success" ng-click="foodtruckctrl.saveParameters()" ng-disabled="foodtruckctrl.saveinprogress">Set login</button>
+				<div ng-bind-html="foodtruckctrl.getListEvents(foodtruckctrl.listevents )"></div>
+						
+			
+			</div>
+						
 	</div>
 
 </div> <!--  end div controler -->

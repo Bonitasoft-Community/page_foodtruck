@@ -101,8 +101,8 @@ public class JUnitFoodTruck {
     }
     // @ T e s t
     public void testFoodTruckStoreGithub() {
-        final FoodTruckStoreGithub foodTruckStoreGithub = new FoodTruckStoreGithub(FoodTruckStoreFactory.GithubUserName, FoodTruckStoreFactory.GithubPassword,
-                FoodTruckStoreFactory.GithubUrlRepository);
+        final FoodTruckStoreGithub foodTruckStoreGithub = new FoodTruckStoreGithub(FoodTruckStoreFactory.CommunityGithubUserName, FoodTruckStoreFactory.CommunityGithubPassword,
+                FoodTruckStoreFactory.CommunityGithubUrlRepository);
 
         final LogBox logBox = new LogBox();
         final FoodTruckResult storeResult = foodTruckStoreGithub.getListAvailableItems(TypeApps.CUSTOMPAGE, logBox);
@@ -136,7 +136,7 @@ public class JUnitFoodTruck {
 
         foodTruckParam.directoryFileLocaly = "c:/temp";
         foodTruckParam.saveDownloadFileLocaly = true;
-        foodTruckParam.listRepository.add(FoodTruckDefStore.getGithub(FoodTruckStoreFactory.GithubUrlRepository, "Pierre-yves-monnet", "pierreyvesforgithub"));
+        foodTruckParam.listRepository.add(FoodTruckDefStore.getGithub(FoodTruckStoreFactory.CommunityGithubUrlRepository, "Pierre-yves-monnet", "pierreyvesforgithub"));
         final FoodTruckResult foodTruckResultApps = FoodTruckAccess.downloadAndInstallCustomPage(foodTruckParam, apiSession);
         System.out.println("Result=" + foodTruckResultApps.toString());
 
@@ -158,7 +158,7 @@ public class JUnitFoodTruck {
 
         // foodTruckParam.listRepository.add(foodTruckParam.getCommunityRepository());
 
-        foodTruckParam.listRepository.add(FoodTruckDefStore.getGithub(FoodTruckStoreFactory.GithubUrlRepository, "Pierre-yves-monnet", "pierreyvesforgithub"));
+        foodTruckParam.listRepository.add(FoodTruckDefStore.getGithub(FoodTruckStoreFactory.CommunityGithubUrlRepository, "Pierre-yves-monnet", "pierreyvesforgithub"));
 
         foodTruckParam.filter = FilterEnum.ALL;
         foodTruckParam.saveLogoFileLocaly = true;
@@ -349,8 +349,8 @@ public class JUnitFoodTruck {
     public void checkGithub()
     {
         // final ResultLastContrib resultLastContrib = GithubAccessor.getLastContribReleaseAsset("PierrickVouletBonitasoft", "pwd");
-        final GithubAccessor githubAccessor = new GithubAccessor(FoodTruckStoreFactory.GithubUserName, FoodTruckStoreFactory.GithubPassword,
-                FoodTruckStoreFactory.GithubUrlRepository);
+        final GithubAccessor githubAccessor = new GithubAccessor(FoodTruckStoreFactory.CommunityGithubUserName, FoodTruckStoreFactory.CommunityGithubPassword,
+                FoodTruckStoreFactory.CommunityGithubUrlRepository);
         final LogBox logBox = new LogBox();
         final ResultGithub resultLastContrib = githubAccessor.executeGetRestOrder("/repos", null, logBox);
         System.out.println(resultLastContrib.jsonResult);

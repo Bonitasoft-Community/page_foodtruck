@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>CustomPageCraneTruck</name>
+	<name>CustomPageFoodtruck</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -17,7 +17,44 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>custompage/7.2.4/Index.groovy</name>
+			<type>1</type>
+			<location>C:/atelier/BPM-SP-7.2.4/workspace/Auckland/bonita_home/client/tenants/1/work/pages/custompage_foodtruck/Index.groovy</location>
+		</link>
+		<link>
+			<name>custompage/7.2.4/foodtruckmonitor.js</name>
+			<type>1</type>
+			<location>C:/atelier/BPM-SP-7.2.4/workspace/Auckland/bonita_home/client/tenants/1/work/pages/custompage_foodtruck/resources/foodtruckmonitor.js</location>
+		</link>
+		<link>
+			<name>custompage/7.2.4/index.html</name>
+			<type>1</type>
+			<location>C:/atelier/BPM-SP-7.2.4/workspace/Auckland/bonita_home/client/tenants/1/work/pages/custompage_foodtruck/index.html</location>
+		</link>
+		<link>
+			<name>custompage/7.2.4/page.properties</name>
+			<type>1</type>
+			<location>C:/atelier/BPM-SP-7.2.4/workspace/Auckland/bonita_home/client/tenants/1/work/pages/custompage_foodtruck/page.properties</location>
+		</link>
+		<link>
+			<name>custompage/7.5.2 com/Index.groovy</name>
+			<type>1</type>
+			<location>C:/atelier/BPM-Community-7.5.2/workspace/tomcat/server/temp/bonita_portal_10380@pc-pierre-yves/tenants/1/pages/custompage_foodtruck/Index.groovy</location>
+		</link>
+		<link>
+			<name>custompage/7.5.2 com/foodtruckmonitor.js</name>
+			<type>1</type>
+			<location>C:/atelier/BPM-Community-7.5.2/workspace/tomcat/server/temp/bonita_portal_10380@pc-pierre-yves/tenants/1/pages/custompage_foodtruck/resources/foodtruckmonitor.js</location>
+		</link>
+		<link>
+			<name>custompage/7.5.2 com/index.html</name>
+			<type>1</type>
+			<location>C:/atelier/BPM-Community-7.5.2/workspace/tomcat/server/temp/bonita_portal_10380@pc-pierre-yves/tenants/1/pages/custompage_foodtruck/index.html</location>
+		</link>
+	</linkedResources>
 </projectDescription>

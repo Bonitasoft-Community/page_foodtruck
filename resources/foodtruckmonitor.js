@@ -24,6 +24,8 @@ appCommand.controller('FoodTruckControler',
 	function ( $http, $scope,$sce ) {
 
 	
+	this.showgithublogin=false;
+	
 	// --------------------------------------------------------------------------
 	//
 	//  General
@@ -48,15 +50,15 @@ appCommand.controller('FoodTruckControler',
 	//
 	// --------------------------------------------------------------------------
 	this.loading= false;
-	this.custompage= {};
-	this.custompage.param={};
-	this.custompage.param.showlocal=true;
-	this.custompage.param.showBonitaAppsStore=true;
-	this.custompage.param.github ={};
-	this.custompage.param.github.login="";
-	this.custompage.param.github.password="";
-	this.custompage.param.gold=true;
+	this.custompage={};
+	this.param={};
+	this.param.showlocal=true;
+	this.param.showBonitaAppsStore=true;
+	this.param.github ={};
+	this.param.gold=true;
 	
+	// in Community version, the addProfile is not allowed
+	this.generalAllowAddProfile=false;
 	
 
 	
@@ -64,8 +66,8 @@ appCommand.controller('FoodTruckControler',
 	this.listcustompage = function( show )
 	{
 		this.loading = true;
-		this.custompage.param.show=show;
-		var json = angular.toJson(this.custompage.param, false);
+		this.param.show=show;
+		var json = encodeURI(angular.toJson(this.param, false));
 		var self=this;
 		// alert("json="+json);
 		
@@ -77,10 +79,11 @@ appCommand.controller('FoodTruckControler',
 						self.custompage.list 			= jsonResult.data.list;
 						self.custompage.listevents 		= jsonResult.data.listevents;
 						self.alllistprofiles 			= jsonResult.data.alllistprofiles;
+						self.generalAllowAddProfile 	= jsonResult.data.isAllowAddProfile;
 						self.custompage.status="";
 				},
 				function(jsonResult ) {
-					alert("listcustompage: Can't connect the server ("+jsonResult.status+")");
+					// alert("Can't connect the server ("+jsonResult.status+")");
 					self.statusresource="Can't connect the server ("+jsonResult.status+")";
 				})
 				.finally(function() {
@@ -104,8 +107,8 @@ appCommand.controller('FoodTruckControler',
 					"status": custompageinfo.status,
 					'urldownload':custompageinfo.urldownload,
 					"storegithubname":custompageinfo.storegithubname,
-					"github" : this.custompage.param.github};
-		var json = angular.toJson(param, true);
+					"github" : this.param.github};
+		var json = encodeURI( angular.toJson(param, true));
 		
 		
 		
@@ -114,6 +117,8 @@ appCommand.controller('FoodTruckControler',
 				.then( function ( jsonResult ) {
 					// self.custompage.list 		= jsonResult.data.list;
 					custompageinfo.status=  jsonResult.data.statuscustompage;
+					custompageinfo.isAllowAddProfile=  jsonResult.data.isAllowAddProfile;
+					
 					self.custompage.listevents 		= jsonResult.data.listevents;
 					self.custompage.status="";
 					
@@ -163,7 +168,7 @@ appCommand.controller('FoodTruckControler',
 				"displayname" : custompageinfo.displayname,
 				"profileid":custompageinfo.addinprofileid,
 				"status": custompageinfo.status}
-		var json = angular.toJson(param, true);
+		var json = encodeURI(angular.toJson(param, true));
 		$http.get( '?page=custompage_foodtruck&action=addcustompageinprofile&json='+json)
 				.then( function ( jsonResult ) {
 					// the custom page upgrated is in the list, first position
@@ -195,7 +200,7 @@ appCommand.controller('FoodTruckControler',
 				"appsid": custompageinfo.appsid,
 				"profileid":profileinfo.id,
 				"status": custompageinfo.status}
-		var json = angular.toJson(param, true);
+		var json = encodeURI(angular.toJson(param, true));
 			
 		$http.get( '?page=custompage_foodtruck&action=removecustompagefromprofile&json='+json )
 				.then( function ( jsonResult ) {
@@ -232,15 +237,20 @@ appCommand.controller('FoodTruckControler',
 	this.loadParameters = function() 
 	{
 		var self = this;
-		
+		self.saveinprogress=true;
 		$http.get( '?page=custompage_foodtruck&action=loadparameters' )
 		.then( function ( jsonResult ) {
 				console.log("loadparameters",jsonResult.data);
-				$.extend( self.custompage.param, jsonResult.data); 
-				self.custompage.param.status =""; // remove status to not save it again
+				self.saveinprogress=false;
+				// $.extend( self.param, jsonResult.data); 
+				// angular.copy(jsonResult.data.param, self.param); 
+				self.param=jsonResult.data.param;
+				self.listevents= jsonResult.data.listevents;
 				self.listcustompage();
 			},
 		function(jsonResult ) {
+			self.saveinprogress=false;
+
 			// alert("loadparameters Error : "+ angular.toJson( jsonResult.data ) );
 			this.listcustompage();
 			}
@@ -252,17 +262,18 @@ appCommand.controller('FoodTruckControler',
 	this.saveParameters = function () 
 	{
 		var self = this;
-		self.statusparameters="";
+		self.saveinprogress=true;
 		
-		var json = angular.toJson(self.custompage.param, false);
+		var json = encodeURI(angular.toJson(self.param, false));
 		
 		$http.get( '?page=custompage_foodtruck&action=saveparameters&json='+json )
-		.then( function ( jsonResult ) {				
-				self.statusparameters="Saved.";
+		.then( function ( jsonResult ) {	
+				self.listevents= jsonResult.data.listevents;
+				self.saveinprogress=false;
 		},
 		function(jsonResult ) {
 			alert("Error when save parameters ("+jsonResult.status+")");
-			self.statusparameters="Error during save ("+jsonResult.status+")";
+			self.saveinprogress=false;
 		})	
 	}
 	// --------------------------------------------------------------------------
