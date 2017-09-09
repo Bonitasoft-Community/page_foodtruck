@@ -229,25 +229,24 @@ public class Index implements PageController {
 	 * 
 	 */
 	private void runTheBonitaIndexDoGet(HttpServletRequest request, HttpServletResponse response, PageResourceProvider pageResourceProvider, PageContext pageContext) {
-				try {
-						def String indexContent;
-						pageResourceProvider.getResourceAsStream("index.html").withStream { InputStream s->
-								indexContent = s.getText()
-						}
-						
-						def String pageResource="pageResource?&page="+ request.getParameter("page")+"&location=";
-						
-						indexContent= indexContent.replace("@_USER_LOCALE_@", request.getParameter("locale"));
-						indexContent= indexContent.replace("@_PAGE_RESOURCE_@", pageResource);
-						
-						response.setCharacterEncoding("UTF-8");
-						PrintWriter out = response.getWriter();
-						out.print(indexContent);
-						out.flush();
-						out.close();
-				} catch (Exception e) {
-						e.printStackTrace();
-				}
+		try {
+			def String indexContent;
+			pageResourceProvider.getResourceAsStream("index.html").withStream { InputStream s->
+					indexContent = s.getText()
+			}
+			
+			// def String pageResource="pageResource?&page="+ request.getParameter("page")+"&location=";
+			// indexContent= indexContent.replace("@_USER_LOCALE_@", request.getParameter("locale"));
+			// indexContent= indexContent.replace("@_PAGE_RESOURCE_@", pageResource);
+			
+			response.setCharacterEncoding("UTF-8");
+			PrintWriter out = response.getWriter();
+			out.print(indexContent);
+			out.flush();
+			out.close();
+	} catch (Exception e) {
+			e.printStackTrace();
+	}
 		}
 		
 }

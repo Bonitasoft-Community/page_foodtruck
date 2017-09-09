@@ -339,6 +339,7 @@ public class FoodTruckAccess {
 				}
 				foodTruckResult.allListProfiles.add(profile);
 			}
+			foodTruckResult.isAllowAddProfile=true;
 		} catch (final SearchException e) {
 			foodTruckParam.logBox.log(LOGLEVEL.ERROR, "Error during seachProfile [" + e.toString() + "]");
 			foodTruckResult.addEvent(new BEvent(searchProfileError, e, ""));
