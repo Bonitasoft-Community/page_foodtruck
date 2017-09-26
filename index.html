@@ -28,21 +28,23 @@
 <body ng-app="foodtruckmonitor">
 
 
-<div class="container" id="accordion">
 
-	<div class="bs-component"  ng-controller="FoodTruckControler as foodtruckctrl">
+
+<div class="bs-component"  ng-controller="FoodTruckControler as foodtruckctrl">
 
 	
 		<center>
 		<table>
 			<tr>
-				<td><h1>Food Truck</h1><a href="" ng-click="foodtruckctrl.showhistory( ! foodtruckctrl.isshowhistory )">V1.1</a></td>
+				<td><h1>Food Truck</h1><a href="" ng-click="foodtruckctrl.showhistory( ! foodtruckctrl.isshowhistory )">V1.3</a></td>
 				<td rowspan="2"><img src="pageResource?page=custompage_foodtruck&location=img/foodtruck.jpg" width="150" heigth="150" /></td>
 			</tr>
 			<tr><td>
 				<div id="showHistory" ng-show="foodtruckctrl.isshowhistory" style="border-width:2px;border-style:ridge;border-color:blue">
 				1.0 First version<br>
-				1.0 Ready for 7.5 + BonitaCommunity login
+				1.1 Ready for 7.5 + BonitaCommunity login
+				1.2 Bug fix
+				1.3 Look and feel
 				</td>
 			</tr>
 			</div>
@@ -55,7 +57,8 @@
 	<!--                                                                              -->
 	<!-- --------------------------------------------------------------------------   -->
 	
-	
+	<div class="col-lg-12">
+		
 		<div class="col-lg-12">
 			<legend class="text-primary"><span class="glyphicon glyphicon-th"></span>Custom Page</legend>
 			<div class="panel panel-primary">
@@ -79,6 +82,96 @@
 					</td>
 				</tr>
 				</table>
+				<p>
+				<p>
+				
+				<div ng-repeat="custompageinfo in foodtruckctrl.custompage.list track by $index">
+		
+					<div class="col-lg-4">
+		
+						<table style="border: solid 1px;width:500px;height:200px;margin:0px 10px 10px 10px;box-shadow: 1px 1px 12px #555;">
+							<tr style="background:#f5f5f5;text-align:center;height:10px">
+								<td >Name</td>
+								<td>Description</td>
+								<td>Profile</td>
+							</tr>
+							<tr>
+								<td>
+									<table style="width:100%">
+									<tr>
+									<td style="width:150px;height:150px"> 
+										<img ng-src="{{custompageinfo.urllogo}}" style="max-width: 150px;max-height:150px; height: auto;"  /></td><td><a href="" title="{{custompageinfo.appsname}}">{{custompageinfo.displayname}}</a></td></tr>
+									<tr><td colspan="2">
+									<button ng-show="custompageinfo.status=='INDOWNLOAD'" class="btn btn-warning btn-xs" style="width:100%">Dowload...</button>
+									<button ng-show="custompageinfo.status=='LOCAL'" class="btn btnl-primary btn-xs" style="width:100%">Local</button>
+								    <button ng-show="custompageinfo.status=='NEW'" class="btn btn-info btn-xs" style="width:100%" ng-click="foodtruckctrl.downloadcustompage(custompageinfo)">Available</button>
+								    <button ng-show="custompageinfo.status=='OK'" class="btn btn-success btn-xs" style="width:100%" >Up to date</button>
+								    <button ng-show="custompageinfo.status=='NOTAVAILABLE'" class="btn btn-primary btn-xs" style="width:100%" >Not available</button>
+								    <button ng-show="custompageinfo.status=='TOUPDATE'" class="btn btn-danger btn-xs" style="width:100%" ng-click="foodtruckctrl.downloadcustompage(custompageinfo)">New version</button>
+								  
+								    <div  ng-show="custompageinfo.status=='TOUPDATE'">
+								  		<div ng-show="! custompageinfo.showwhatsnew">
+								  			<button ng-click="custompageinfo.showwhatsnew = ! custompageinfo.showwhatsnew"><span class="glyphicon glyphicon-chevron-left"></span></button>
+								  		</div>
+								  		<div ng-show="custompageinfo.showwhatsnew">
+								  			<button ng-click="custompageinfo.showwhatsnew = ! custompageinfo.showwhatsnew"><span class="glyphicon glyphicon-chevron-right"></span></button>
+								  			{{custompageinfo.whatsnews}}
+								  		</div>
+								 	 </div>		
+									</td>
+									</tr>
+									</table>
+									
+								</td>
+								<td>{{custompageinfo.version}} {{custompageinfo.releasedate}}<p>
+								<span style="font-size: smaller;">
+								{{custompageinfo.description}}
+								</span>
+								<p>
+								<span style="font: italic bold 12px/30px Georgia, serif;">{{custompageinfo.nbdownloads}}&nbsp;Downloads</span>
+								</td>
+								<td>
+									<div ng-show="custompageinfo.isAllowAddProfile && foodtruckctrl.generalAllowAddProfile">
+								 	 	<table>
+										<tr>
+											<td>
+											<div ng-repeat="profileinfo in custompageinfo.listprofiles track by $index">
+												<label class="label label-info btn-xs">
+													{{profileinfo.name}} 
+													<a  ng-click="foodtruckctrl.custompageoutofprofile( custompageinfo, profileinfo )">
+														<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: red;"></span>
+													</a>
+												</label>
+											</div>
+											</td>
+										 </tr>
+										 <tr ng-show="foodtruckctrl.getlistprofiletoadd( custompageinfo ).length > 0">
+										 	<td colspan="2">
+											Add in profile: 
+											<select ng-model="custompageinfo.addinprofileid">
+												<option ng-repeat="profileinfo in foodtruckctrl.getlistprofiletoadd( custompageinfo )"  value="{{profileinfo.id}}">{{profileinfo.name}}</option>
+											</select>
+											<button type="button" class="btn btn-xs btn-success" ng-click="foodtruckctrl.addcustompageinprofile( custompageinfo )">Add</button>
+											</td>
+										</tr>
+										<tr><td colspan="2">{{custompageinfo.statusinfo}}</td></tr>
+										
+										</table>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				<!-- 
 				<button ng-click="foodtruckctrl.listcustompage()" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button><br>
@@ -91,7 +184,7 @@
 				Search:<input type="text" ng-model="foodtruckctrl.custompage.search"><button ng-click="foodtruckctrl.searchCustomPage()" class="btn btn-info btn-xs">Search</button>
 				 -->
 				
-				
+				<!-- 
 				<table class="table table-striped table-hover table-condensed">
 					<tr> <th>Name</th><th>Description</th><th>Release</th><th>Profiles</th><tr>
 					<tbody ng-repeat="custompageinfo in foodtruckctrl.custompage.list track by $index">
@@ -150,6 +243,7 @@
 						</tr>
 					</tbody>
 				</table>
+				 -->
 			</div>
 		</div>
 		
@@ -233,9 +327,31 @@
 			</div>
 						
 	</div>
+	
+	<div class="col-lg-12">
+			<legend class="text-primary"><span class="glyphicon glyphicon-th">
+			<a href="#" ng-click="foodtruckctrl.showpublication = ! foodtruckctrl.showpublication" style="text-decoration:none">					
+			  				<span ng-show="foodtruckctrl.showpublication" class="glyphicon glyphicon-chevron-down" style="font-size: 18px;"></span>
+							<span ng-show="! foodtruckctrl.showpublication" class="glyphicon glyphicon-chevron-right"  style="font-size: 18px;"></span>
+			</a>		
 
+			</span>How to publish</legend>
+			<div ng-show="foodtruckctrl.showpublication">
+			
+			<div class="well">
+				Want to see your page here ?<br>
+				<li>Publish your page in the Bonita Github Community, name your project "page_XXX"</li>
+				<li>Create a release, and in the release, have a file "custompage_XXX.zip"</li>
+				<li>Put in the github root a file XXX.jpg, this is the logo of the image</li>
+				<li>Put in the github root a page.properties, which contains the description.</li> 
+				</div><p>
+							
+			
+			</div>
+						
+	</div>
 </div> <!--  end div controler -->
-</div> <!--  end div container -->
+
 
 
 <!-- Third party dependencies -->
