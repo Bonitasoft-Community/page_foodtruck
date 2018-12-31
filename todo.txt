@@ -1,0 +1,36 @@
+
+
+Explication pour dire a quoi sert cette page (a qui il est destine, ce que ca faire)
+
+
+Github login ==> Le transformer en une icone (Github Login) qui ouvre la fenetre de parametre (ou un pop over)
+
+Multi categorie : plutot utiliser une liste comme dans le More des processes (pour General / Actors/ Parameters/ Connectors/ Form...)
+
+gerer la deconnexion du portail dans la page
+
+Message d'erreur en pop up
+
+Dans My Platorm : mettre les status "
+
+Renomme "Update ? " ==> " Update available ?" + rouge
+	"New ? " en "Available" + bleu
+
+
+FILTRES:
+* My platform
+* Updates
+* Available (replace le new)
+* Search + text
+
+Liens de la page n'emene pas vers la page elle meme. Enlever le lien. Mettre une icone donnant le lien ver Github
++ mettre le titre plus gros et plus visible
+
+
+Avoir la meme hauteur de ligne, ciblé la hauteur de "Crane truck"
+
+Mettre le bouton "available" en petit dessous l'icone
+
+Afficher les N premiers profiles plus un ... si il y en a plus
+
+

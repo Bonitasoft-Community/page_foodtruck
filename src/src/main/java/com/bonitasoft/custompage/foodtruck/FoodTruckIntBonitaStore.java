@@ -1,6 +1,8 @@
 package com.bonitasoft.custompage.foodtruck;
 
-import com.bonitasoft.custompage.foodtruck.AppsItem.TypeApps;
+import java.util.List;
+
+import com.bonitasoft.custompage.foodtruck.AppsItem.TypeArtefacts;
 import com.bonitasoft.custompage.foodtruck.Toolbox.FoodTruckResult;
 
 /**
@@ -19,7 +21,8 @@ public interface FoodTruckIntBonitaStore {
 	 *
 	 * @return
 	 */
-	public FoodTruckResult getListAvailableItems(TypeApps typeApps, LogBox logBox);
+	
+	public FoodTruckResult getListAvailableApps( final List<TypeArtefacts> listTypeApps,final boolean withNotAvailable, final LogBox logBox);
 
 	/**
 	 * download the application. Result is saved in FoodTruckResult.content
@@ -27,6 +30,6 @@ public interface FoodTruckIntBonitaStore {
 	 * @param name
 	 * @return
 	 */
-	public FoodTruckResult downloadOneCustomPage(final AppsItem appsItem, LogBox logBox);
+	public FoodTruckResult downloadOneApps(final AppsItem appsItem, LogBox logBox);
 
 }

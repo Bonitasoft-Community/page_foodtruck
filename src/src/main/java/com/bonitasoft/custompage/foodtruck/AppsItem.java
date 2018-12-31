@@ -36,7 +36,7 @@ public class AppsItem {
 		NEW, TOUPDATE, OK, LOCAL, INDOWNLOAD, NOTAVAILABLE
 	};
 
-	public enum TypeApps {
+	public enum TypeArtefacts {
 		CUSTOMPAGE, CUSTOMWIDGET
 	};
 
@@ -53,7 +53,7 @@ public class AppsItem {
 	// give the status of the apps
 	public AppsStatus appsStatus;
 
-	public TypeApps typeApps;
+	public TypeArtefacts typeApps;
 
 	public String displayName;
 	public String contribFile;
@@ -105,7 +105,7 @@ public class AppsItem {
 
 	public AppsItem(final Page page) {
 		appsStatus = AppsStatus.LOCAL;
-		typeApps = TypeApps.CUSTOMPAGE;
+		typeApps = TypeArtefacts.CUSTOMPAGE;
 		displayName = page.getDisplayName();
 		appsId = page.getId();
 		appsName = page.getName().toLowerCase();
@@ -189,7 +189,7 @@ public class AppsItem {
 
 	}
 
-	public void setAppsName(final TypeApps typeApps, final String appsName) {
+	public void setAppsName(final TypeArtefacts typeApps, final String appsName) {
 
 		this.appsName = appsName == null ? "" : appsName.toLowerCase();
 		if (typeApps != null) {

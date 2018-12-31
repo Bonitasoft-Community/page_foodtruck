@@ -13,7 +13,7 @@ import org.bonitasoft.log.event.BEventFactory;
 import org.json.simple.JSONObject;
 
 import com.bonitasoft.custompage.foodtruck.AppsItem.AppsStatus;
-import com.bonitasoft.custompage.foodtruck.AppsItem.TypeApps;
+import com.bonitasoft.custompage.foodtruck.AppsItem.TypeArtefacts;
 import com.bonitasoft.custompage.foodtruck.LogBox.LOGLEVEL;
 import com.bonitasoft.custompage.foodtruck.Toolbox.FoodTruckResult;
 import com.bonitasoft.custompage.foodtruck.github.GithubAccessor;
@@ -58,7 +58,7 @@ public class FoodTruckStoreGithub implements FoodTruckIntBonitaStore {
 	 *
 	 */
 	@Override
-	public FoodTruckResult getListAvailableItems(final TypeApps typeApps, final LogBox logBox) {
+	public FoodTruckResult getListAvailableApps(final List<TypeArtefacts> listTypeApps, boolean withNotAvailable, final LogBox logBox) {
 		final SimpleDateFormat sdfParseRelease = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 		final FoodTruckResult storeResult = new FoodTruckResult("getListAvailableItems");
@@ -89,11 +89,13 @@ public class FoodTruckStoreGithub implements FoodTruckIntBonitaStore {
 			final JSONObject oneRepository = (JSONObject) oneRepositoryOb;
 
 			final String repositoryName = (String) oneRepository.get("name");
-			if (!match(typeApps, repositoryName)) {
+			TypeArtefacts typeApps = match(listTypeApps, repositoryName);
+			if (typeApps == null)
 				continue;
-			}
+			
 
 			// this is what we search
+		
 			final AppsItem appsItem = new AppsItem();
 			appsItem.typeApps = typeApps;
 			appsItem.appsStatus = AppsStatus.NEW; // for the moment
@@ -228,7 +230,13 @@ public class FoodTruckStoreGithub implements FoodTruckIntBonitaStore {
 				}
 			}
 			logBox.log(LogBox.LOGLEVEL.INFO, traceOneApps);
-			storeResult.listCustomPage.add(appsItem);
+			if (appsItem.appsStatus == AppsStatus.NOTAVAILABLE)
+			{
+				if (withNotAvailable)
+					storeResult.listCustomPage.add(appsItem);
+			}
+			else
+				storeResult.listCustomPage.add(appsItem);
 		} // end loop repo
 
 		/*
@@ -261,26 +269,29 @@ public class FoodTruckStoreGithub implements FoodTruckIntBonitaStore {
 	 *
 	 * @param typeApps
 	 * @param repositoryName
-	 * @return
+	 * @return the typeApp or null if nothing match
 	 */
-	private boolean match(final TypeApps typeApps, String repositoryName) {
+	private TypeArtefacts match(final List<TypeArtefacts> listTypeApps, String repositoryName) {
 		// TypeAppsName is CUSTOMPAGE or CUSTOMWIDGET
 
-		final String typeAppsName = typeApps.toString().toUpperCase();
 		// we accept CUSTOMPAGE or PAGE
 		if (repositoryName == null) {
-			return false;
+			return null;
 		}
 		repositoryName = repositoryName.toUpperCase();
 
-		if (repositoryName.startsWith(typeAppsName + "_") || ("CUSTOM" + repositoryName).startsWith(typeAppsName + "_")) {
-			return true;
+		for (TypeArtefacts typeApps : listTypeApps)
+		{
+			final String typeAppsName = typeApps.toString().toUpperCase();
+			if (repositoryName.startsWith(typeAppsName + "_") || ("CUSTOM" + repositoryName).startsWith(typeAppsName + "_")) {
+				return typeApps;
+			}
 		}
-		return false;
+		return null;
 	}
 
 	@Override
-	public FoodTruckResult downloadOneCustomPage(final AppsItem appsItem, final LogBox logBox) {
+	public FoodTruckResult downloadOneApps(final AppsItem appsItem, final LogBox logBox) {
 		final FoodTruckResult foodTruckResult = new FoodTruckResult("DownloadOneCustomPage");
 		if (appsItem.getLastUrlDownload() == null) {
 			foodTruckResult.addEvent(new BEvent(noContribFile, "Apps[" + appsItem.getAppsName() + "]"));

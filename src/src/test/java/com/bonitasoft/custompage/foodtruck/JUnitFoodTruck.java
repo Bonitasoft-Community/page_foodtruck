@@ -3,6 +3,7 @@ package com.bonitasoft.custompage.foodtruck;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ import org.bonitasoft.log.event.BEventFactory;
 import org.junit.Test;
 
 import com.bonitasoft.custompage.foodtruck.AppsItem.AppsStatus;
-import com.bonitasoft.custompage.foodtruck.AppsItem.TypeApps;
+import com.bonitasoft.custompage.foodtruck.AppsItem.TypeArtefacts;
 import com.bonitasoft.custompage.foodtruck.FoodTruckAccess.FilterEnum;
 import com.bonitasoft.custompage.foodtruck.FoodTruckAccess.FoodTruckParam;
 import com.bonitasoft.custompage.foodtruck.FoodTruckStoreFactory.FoodTruckDefStore;
@@ -105,7 +106,9 @@ public class JUnitFoodTruck {
                 FoodTruckStoreFactory.CommunityGithubUrlRepository);
 
         final LogBox logBox = new LogBox();
-        final FoodTruckResult storeResult = foodTruckStoreGithub.getListAvailableItems(TypeApps.CUSTOMPAGE, logBox);
+        List<TypeArtefacts> listTypeApps = new ArrayList<TypeArtefacts>();
+        listTypeApps.add(TypeArtefacts.CUSTOMPAGE);
+        final FoodTruckResult storeResult = foodTruckStoreGithub.getListAvailableApps(listTypeApps, true, logBox);
         System.out.print(storeResult.getEvents());
         for (final AppsItem appsItem : storeResult.listCustomPage)
         {

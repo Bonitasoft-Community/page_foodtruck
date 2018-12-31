@@ -41,7 +41,7 @@ import org.bonitasoft.log.event.BEventFactory;
 import org.json.simple.JSONValue;
 
 import com.bonitasoft.custompage.foodtruck.AppsItem.AppsStatus;
-import com.bonitasoft.custompage.foodtruck.AppsItem.TypeApps;
+import com.bonitasoft.custompage.foodtruck.AppsItem.TypeArtefacts;
 import com.bonitasoft.custompage.foodtruck.FoodTruckStoreFactory.FoodTruckDefStore;
 import com.bonitasoft.custompage.foodtruck.LogBox.LOGLEVEL;
 import com.bonitasoft.custompage.foodtruck.Toolbox.FoodTruckResult;
@@ -233,7 +233,8 @@ public class FoodTruckAccess {
 
 				final FoodTruckIntBonitaStore foodTruckStoreGithub = foodTruckStoreFactory.getFoodTruckStore(foodTruckRepository);
 
-				final FoodTruckResult storeResult = foodTruckStoreGithub.getListAvailableItems(TypeApps.CUSTOMPAGE, foodTruckParam.logBox);
+				
+				final FoodTruckResult storeResult = foodTruckStoreGithub.getListAvailableApps(getListTypeApps(), false, foodTruckParam.logBox);
 				foodTruckResult.addEvents(storeResult.getEvents());
 				if (storeResult.listCustomPage != null) {
 					listAllAppsItem.addAll(storeResult.listCustomPage);
@@ -447,7 +448,7 @@ public class FoodTruckAccess {
 			foodTruckResult.statuscustompage = AppsStatus.INDOWNLOAD;
 
 			// The apps is part of the foodTruckParam
-			final FoodTruckResult foodTruckResultDownload = foodTruckParam.appsItem.sourceFoodTruckStoreGithub.downloadOneCustomPage(appsItem, foodTruckParam.logBox);
+			final FoodTruckResult foodTruckResultDownload = foodTruckParam.appsItem.sourceFoodTruckStoreGithub.downloadOneApps(appsItem, foodTruckParam.logBox);
 			// merge
 			foodTruckResult.addEvents(foodTruckResultDownload.getEvents());
 			foodTruckResult.contentByte = foodTruckResultDownload.contentByte;
@@ -787,7 +788,8 @@ public class FoodTruckAccess {
 		for (final FoodTruckDefStore foodTruckRepository : foodTruckParam.listRepository) {
 			final FoodTruckIntBonitaStore foodTruckStoreGithub = foodTruckStoreFactory.getFoodTruckStore(foodTruckRepository);
 
-			final FoodTruckResult storeResult = foodTruckStoreGithub.getListAvailableItems(TypeApps.CUSTOMPAGE, foodTruckParam.logBox);
+			
+			final FoodTruckResult storeResult = foodTruckStoreGithub.getListAvailableApps(getListTypeApps(), false, foodTruckParam.logBox);
 			foodTruckResult.addEvents(storeResult.getEvents());
 
 			// Exist in this repository ?
@@ -852,6 +854,18 @@ public class FoodTruckAccess {
 		} catch (SearchException | ProfileNotFoundException e) {
 			logBox.log(LOGLEVEL.ERROR, "Error during recalcul profile for Apps [" + appsItem.getAppsName() + "]");
 		}
+	}
+
+	/**
+	 * type supported by the foodtruck
+	 * @return
+	 */
+	private static List<TypeArtefacts> getListTypeApps()
+	{
+		List<TypeArtefacts> listTypeApps = new ArrayList<TypeArtefacts>();
+		listTypeApps.add( TypeArtefacts.CUSTOMPAGE );
+		listTypeApps.add( TypeArtefacts.CUSTOMWIDGET );
+		return listTypeApps;
 	}
 
 }
