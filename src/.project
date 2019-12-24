@@ -66,5 +66,20 @@
 			<type>1</type>
 			<location>C:/atelier/BPM-Community-7.5.2/workspace/tomcat/server/temp/bonita_portal_10380@pc-pierre-yves/tenants/1/pages/custompage_foodtruck/index.html</location>
 		</link>
+		<link>
+			<name>custompage/7.8.3 0319/Index.groovy</name>
+			<type>1</type>
+			<locationURI>PARENT-5-PROJECT_LOC/bonita/BPM-SP-7.8.3/workspace/tomcat/server/temp/bonita_portal_106216@Dragon-Pierre-Yves/tenants/1/pages/custompage_foodtruck/Index.groovy</locationURI>
+		</link>
+		<link>
+			<name>custompage/7.8.3 0319/foodtruckmonitor.js</name>
+			<type>1</type>
+			<locationURI>PARENT-5-PROJECT_LOC/bonita/BPM-SP-7.8.3/workspace/tomcat/server/temp/bonita_portal_106216@Dragon-Pierre-Yves/tenants/1/pages/custompage_foodtruck/resources/foodtruckmonitor.js</locationURI>
+		</link>
+		<link>
+			<name>custompage/7.8.3 0319/index.html</name>
+			<type>1</type>
+			<locationURI>PARENT-5-PROJECT_LOC/bonita/BPM-SP-7.8.3/workspace/tomcat/server/temp/bonita_portal_106216@Dragon-Pierre-Yves/tenants/1/pages/custompage_foodtruck/index.html</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>

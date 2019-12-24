@@ -34,3 +34,28 @@ Mettre le bouton "available" en petit dessous l'icone
 Afficher les N premiers profiles plus un ... si il y en a plus
 
 
+
+remarque
+* enlever le concpet de categorie
+* mettre des onglets a la place des boutone "all, my platform, ...
+deplacer "gitub login" en haut a droite + set login par save (disquette)
+* hox to publidh" par une icone "informatyion" + remplacer "page_xxxx" par "page_<name>
+* revoir l'ergnomie sur les applications :
+    <nom> ( <nombre download> )
+	<image>   <description>
+	<          status       >
+
+Enlever les noms / Description / Profile en haut de l'apps
+	
+Ajouter dans un group : comme dans gmail, avoir un : puis en deployant on a la liste en vertical des profile + choix de selection d'un profile pour ajout / retrait
+
+Logo a gauche, titre au centre, login a droite
+
+status : downloading ... {{orange}} / latest version installed (version Git) [[vert}} / installed (version Git) {{bleu}} / Not installed {{gris}}/ In error {{not available - rouge}}
+
+
+
+COMMUNAUTE : changer le topic en "custom_page"
+
+
+

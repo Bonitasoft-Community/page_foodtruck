@@ -65,16 +65,16 @@ import org.bonitasoft.engine.bpm.flownode.ActivityInstance;
 import org.bonitasoft.engine.bpm.process.ProcessDeploymentInfo;
 	
 
-import com.bonitasoft.custompage.foodtruck.FoodTruckAccess.FoodTruckParam;
-import com.bonitasoft.custompage.foodtruck.Toolbox.FoodTruckResult;
-import com.bonitasoft.custompage.foodtruck.FoodTruckAccess;
+import com.bonitasoft.custompage.foodtruck.FoodTruckAPI.FoodTruckParam;
+import com.bonitasoft.custompage.foodtruck.FoodTruckResult;
+import com.bonitasoft.custompage.foodtruck.FoodTruckAPI;
 
 import org.bonitasoft.log.event.BEvent;
 import org.bonitasoft.log.event.BEvent.Level;
 import org.bonitasoft.log.event.BEventFactory;
 
 
-import org.bonitasoft.ext.properties.BonitaProperties;
+import org.bonitasoft.properties.BonitaProperties;
 
 public class Index implements PageController {
 
@@ -119,35 +119,33 @@ public class Index implements PageController {
 			
 			
 			HashMap<String,Object> answer = null;
-			if ("listcustompage".equals(action))
+			if ("getlistartifacts".equals(action))
 			{
 				FoodTruckParam foodTruckParam = FoodTruckParam.getInstanceFromJsonSt( jsonParamSt );
-                foodTruckParam.listRepository.add(  foodTruckParam.getCommunityRepository() );
                 
                 File customPageFile = pageResourceProvider.getPageDirectory();
                 foodTruckParam.directoryFileLocaly = customPageFile.getAbsolutePath();
                 
-                answer = FoodTruckAccess.getListCustomPage(foodTruckParam, apiSession).toMap();
+                answer = FoodTruckAPI.getListArtifacts(foodTruckParam, apiSession).toMap();
                
-			} else if ("downloadcustompage".equals(action))
+			} else if ("downloadartifact".equals(action))
             {
                 File customPageFile = pageResourceProvider.getPageDirectory();
 
                 FoodTruckParam foodTruckParam = FoodTruckParam.getInstanceFromJsonSt( jsonParamSt );
-                foodTruckParam.listRepository.add(  foodTruckParam.getCommunityRepository() );
                 
                 foodTruckParam.directoryFileLocaly = customPageFile.getAbsolutePath(); 
-                answer = FoodTruckAccess.downloadAndInstallCustomPage(foodTruckParam, apiSession).toMap();
+                answer = FoodTruckAPI.downloadAndInstallCustomPage(foodTruckParam, apiSession).toMap();
 
-            } else if ("addcustompageinprofile".equals(action))
+            } else if ("addartifactinprofile".equals(action))
             {
                   FoodTruckParam foodTruckParam = FoodTruckParam.getInstanceFromJsonSt( jsonParamSt );
-                  answer = FoodTruckAccess.addInProfile(foodTruckParam, apiSession).toMap();
+                  answer = FoodTruckAPI.addInProfile(foodTruckParam, apiSession).toMap();
                 
-            } else if ("removecustompagefromprofile".equals(action))
+            } else if ("removeartifactfromprofile".equals(action))
             {
                   FoodTruckParam foodTruckParam = FoodTruckParam.getInstanceFromJsonSt( jsonParamSt );
-                  answer = FoodTruckAccess.removeFromProfile(foodTruckParam, apiSession).toMap();
+                  answer = FoodTruckAPI.removeFromProfile(foodTruckParam, apiSession).toMap();
                 
             } else if ("saveparameters".equals(action))
             {

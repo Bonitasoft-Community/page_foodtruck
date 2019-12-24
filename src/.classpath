@@ -21,6 +21,6 @@
 	<classpathentry kind="lib" path="lib/bonita-connector-rest-impl-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/bonita-common-sp-7.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/bonita-client-sp-7.1.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_144"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

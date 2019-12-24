@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
  <groupId>com.bonitasoft.custompage</groupId>
   <artifactId>CustomPageFoodTruck</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
   <name>CustomPageFoodTruck</name>
    <dependencies>
   
@@ -18,7 +18,11 @@
   		<artifactId>bonita-server</artifactId>
   		<version>7.2.4</version>
 	</dependency>
-   
+   <dependency>
+			<groupId>org.bonitasoft.store</groupId>
+			<artifactId>bonita-store</artifactId>
+			<version>1.0.0</version>
+		</dependency>
     <dependency>
         <groupId>com.bonitasoft.log.event</groupId>
         <artifactId>bonita-event</artifactId>
