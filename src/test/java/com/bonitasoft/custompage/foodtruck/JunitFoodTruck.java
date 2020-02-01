@@ -117,7 +117,7 @@ class JunitFoodTruck {
       System.out.print(storeResult.getEvents());
       for (final Artifact artefact : storeResult.listArtifacts) {
           ArtifactFoodTruck appsItem = new ArtifactFoodTruck();
-                  appsItem.artefact = artefact;
+                  appsItem.artifact = artefact;
         logApps("STORE ", appsItem);
       }
       // now upload one element
@@ -180,7 +180,7 @@ class JunitFoodTruck {
       System.out.println("    JSON= " + foodTruckResult.toMap());
       for (final ArtifactFoodTruck appsItem : foodTruckResult.listArtifacts) {
         if (appsItem.status == AppsStatus.LOCAL) {
-          System.out.println("LOCAL:" + appsItem.getName() + " (" + appsItem.artefact.getDisplayName() + ")");
+          System.out.println("LOCAL:" + appsItem.getName() + " (" + appsItem.artifact.getDisplayName() + ")");
           continue;
         }
         logApps("STORE ", appsItem);
@@ -361,13 +361,13 @@ class JunitFoodTruck {
     }
 
     private void logApps(final String label, final ArtifactFoodTruck appsItem) {
-      System.out.println(">>>>>> " + label + " : " + appsItem.getName() + " (" + appsItem.artefact.getDisplayName() + ") Status["
+      System.out.println(">>>>>> " + label + " : " + appsItem.getName() + " (" + appsItem.artifact.getDisplayName() + ") Status["
           + appsItem.status + "]");
-      System.out.println("                               What's new  : [" + appsItem.artefact.getWhatsnews() + "]");
-      System.out.println("                               Description  : [" + appsItem.artefact.getDescription() + "]");
-      System.out.println("                               nbDownload: [" + appsItem.artefact.getNumberOfDownload() + "]");
-      System.out.println("                               UrlDownload  : [" + appsItem.artefact.getLastUrlDownload() + "] realaseDate ["
-          + appsItem.artefact.getLastReleaseDate() + "]");
+      System.out.println("                               What's new  : [" + appsItem.artifact.getWhatsnews() + "]");
+      System.out.println("                               Description  : [" + appsItem.artifact.getDescription() + "]");
+      System.out.println("                               nbDownload: [" + appsItem.artifact.getNumberOfDownload() + "]");
+      System.out.println("                               UrlDownload  : [" + appsItem.artifact.getLastUrlDownload() + "] realaseDate ["
+          + appsItem.artifact.getLastReleaseDate() + "]");
 
     }
 
@@ -396,9 +396,9 @@ class JunitFoodTruck {
           String profileSt = "";
           
 
-          System.out.println(customPage.status +  ":" + customPage.getName() + " (" + customPage.artefact.getDisplayName() + ") - "
-              + " provided:" + customPage.artefact.isProvided()
-              + " " + customPage.artefact.getLastReleaseDate() + " - desc[" + customPage.artefact.getDescription() + "] Profile[" + profileSt + "]");
+          System.out.println(customPage.status +  ":" + customPage.getName() + " (" + customPage.artifact.getDisplayName() + ") - "
+              + " provided:" + customPage.artifact.isProvided()
+              + " " + customPage.artifact.getLastReleaseDate() + " - desc[" + customPage.artifact.getDescription() + "] Profile[" + profileSt + "]");
         }
         System.out.println("-------------- end dahsboard");
       } catch (final Exception e) {

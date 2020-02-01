@@ -1,12 +1,9 @@
 package com.bonitasoft.custompage.foodtruck;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.bonitasoft.engine.profile.Profile;
-import org.bonitasoft.store.BonitaStore;
 import org.bonitasoft.store.BonitaStoreFactory;
 import org.bonitasoft.store.artifact.Artifact;
 import org.bonitasoft.store.artifact.ArtifactCustomPage;
